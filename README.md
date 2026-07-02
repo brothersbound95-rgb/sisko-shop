@@ -1,504 +1,1155 @@
-[sisko-shop-2.html](https://github.com/user-attachments/files/29311952/sisko-shop-2.html)
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SISKO SHOP — Streetwear</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Sisko Shop — Solutions Entreprises</title>
 <style>
-  :root{
-    --ink:#0A0A0A;
-    --ink-soft:#151515;
-    --ink-soft2:#1E1E1E;
-    --paper:#F5F3EE;
-    --accent:#FF4B1F;
-    --accent-soft:rgba(255,75,31,.14);
-    --muted:#8C8C86;
-    --font-display:'Archivo Black', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:var(--font-body);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
-  img{max-width:100%; display:block;}
-  a{color:inherit; text-decoration:none;}
-  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
-  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
-  .wrap{max-width:1240px; margin:0 auto; padding:0 24px;}
-
-  h1,h2,h3{font-family:var(--font-display); line-height:1.02; letter-spacing:-.01em;}
-  .eyebrow{
-    font-family:var(--font-mono);
-    font-size:.72rem;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--accent);
-  }
-
-  /* ---------- NAV ---------- */
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,10,10,.9);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(245,243,238,.08);
-  }
-  .nav-inner{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:baseline; gap:3px; font-family:var(--font-display); font-size:1.4rem; letter-spacing:.02em;}
-  .brand .star{color:var(--accent); font-size:1rem;}
-  .nav-links{display:flex; align-items:center; gap:36px; font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
-  .nav-links a{position:relative; padding:6px 0;}
-  .nav-links a:not(.nav-cta)::after{
-    content:''; position:absolute; left:0; right:0; bottom:0; height:2px;
-    background:var(--accent); transform:scaleX(0); transform-origin:left;
-    transition:transform .25s ease;
-  }
-  .nav-links a:not(.nav-cta):hover::after{transform:scaleX(1);}
-  .nav-cta{
-    background:var(--accent); color:var(--ink); padding:10px 18px; border-radius:2px;
-    transition:background .2s, transform .2s;
-  }
-  .nav-cta:hover{background:#ff6640; transform:translateY(-1px);}
-  .nav-toggle{display:none; flex-direction:column; gap:5px; width:26px;}
-  .nav-toggle span{height:2px; background:var(--paper);}
-
-  /* ---------- MARQUEE ---------- */
-  .marquee{background:var(--accent); color:var(--ink); overflow:hidden; white-space:nowrap; border-bottom:1px solid rgba(0,0,0,.15);}
-  .marquee-track{display:inline-block; padding:9px 0; animation:scroll 22s linear infinite; font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;}
-  .marquee-track span{padding:0 28px;}
-  @keyframes scroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
-  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none;}}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative; padding:110px 0 90px; overflow:hidden;
-    background-image:
-      linear-gradient(rgba(245,243,238,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245,243,238,.05) 1px, transparent 1px);
-    background-size:48px 48px;
-  }
-  .hero::before{
-    content:''; position:absolute; top:-30%; right:-10%; width:60%; height:140%;
-    background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
-    pointer-events:none;
-  }
-  .hero-inner{position:relative; text-align:center;}
-  .hero h1{
-    font-size:clamp(3.4rem, 11vw, 8.2rem);
-    text-transform:uppercase;
-  }
-  .hero h1 .line2{color:var(--accent); -webkit-text-stroke:0; }
-  .hero p{
-    max-width:48ch; margin:26px auto 0; color:var(--muted); font-size:1.05rem;
-  }
-  .hero-ctas{display:flex; gap:14px; justify-content:center; margin-top:38px; flex-wrap:wrap;}
-  .btn-primary{
-    background:var(--accent); color:var(--ink); padding:15px 28px; border-radius:2px;
-    font-weight:700; text-transform:uppercase; font-size:.85rem; letter-spacing:.03em;
-    transition:background .2s, transform .2s;
-  }
-  .btn-primary:hover{background:#ff6640; transform:translateY(-2px);}
-  .btn-ghost{
-    border:1px solid rgba(245,243,238,.3); padding:15px 28px; border-radius:2px;
-    font-weight:700; text-transform:uppercase; font-size:.85rem; letter-spacing:.03em;
-    transition:border-color .2s, background .2s;
-  }
-  .btn-ghost:hover{border-color:var(--accent); background:rgba(255,75,31,.08);}
-
-  /* ---------- CATALOGUE ---------- */
-  .catalogue{padding:90px 0;}
-  .section-head{
-    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:44px;
-  }
-  .section-head h2{font-size:clamp(2.1rem, 5vw, 3rem); text-transform:uppercase;}
-  .filters{display:flex; gap:8px; flex-wrap:wrap;}
-  .filter-btn{
-    font-family:var(--font-mono); font-size:.74rem; text-transform:uppercase; letter-spacing:.05em;
-    padding:9px 15px; border:1px solid rgba(245,243,238,.25); border-radius:2px;
-    transition:background .2s, border-color .2s, color .2s;
-  }
-  .filter-btn.active, .filter-btn:hover{background:var(--paper); color:var(--ink); border-color:var(--paper);}
-
-  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(255px, 1fr)); gap:30px 24px;}
-  .product-card{opacity:0; translate:0 14px;}
-  .product-card.in-view{animation:rise .55s ease forwards;}
-  @keyframes rise{to{opacity:1; translate:0 0;}}
-  .product-card.is-hidden{display:none;}
-
-  .photo-wrap{position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--ink-soft); border-radius:2px;}
-  .photo{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .4s ease;}
-  .photo.alt{opacity:0;}
-  .product-card:hover .photo.main{opacity:0;}
-  .product-card:hover .photo.alt{opacity:1;}
-  .stock-badge{
-    position:absolute; top:10px; left:10px; background:var(--ink); color:var(--paper);
-    font-family:var(--font-mono); font-size:.65rem; text-transform:uppercase; letter-spacing:.05em;
-    padding:5px 9px; border-radius:2px; border:1px solid rgba(245,243,238,.2);
-  }
-  .product-info{padding-top:14px;}
-  .product-name{font-weight:700; font-size:.95rem; text-transform:uppercase; letter-spacing:.01em;}
-  .product-meta{display:flex; justify-content:space-between; align-items:center; margin-top:8px;}
-  .product-price{font-family:var(--font-mono); color:var(--accent); font-weight:700; font-size:.92rem;}
-  .product-order{
-    font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.04em;
-    border:1px solid rgba(245,243,238,.3); padding:7px 12px; border-radius:2px;
-    transition:background .2s, border-color .2s;
-  }
-  .product-order:hover{background:var(--paper); color:var(--ink); border-color:var(--paper);}
-
-  .swatch-label{
-    font-family:var(--font-mono); font-size:.65rem; text-transform:uppercase; letter-spacing:.05em;
-    color:var(--muted); display:block; margin-top:10px; margin-bottom:7px;
-  }
-  .swatches{display:flex; gap:9px;}
-  .swatch{
-    width:22px; height:22px; border-radius:50%;
-    background:var(--swatch-color); cursor:pointer;
-    box-shadow:inset 0 0 0 1px rgba(245,243,238,.3);
-    outline-offset:2px;
-    transition:transform .15s ease;
-  }
-  .swatch:hover{transform:scale(1.12);}
-  .swatch.active{outline:2px solid var(--paper);}
-
-  /* ---------- STEPS ---------- */
-  .steps{background:var(--ink-soft); padding:90px 0;}
-  .steps-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:30px; margin-top:10px;}
-  .step{border-left:2px solid var(--accent); padding-left:20px;}
-  .step-num{font-family:var(--font-mono); color:var(--accent); font-size:1.5rem; font-weight:700;}
-  .step h3{font-size:1.1rem; margin-top:8px; font-family:var(--font-body); font-weight:800; text-transform:uppercase;}
-  .step p{color:var(--muted); margin-top:8px; font-size:.92rem;}
-
-  /* ---------- CONTACT ---------- */
-  .contact{padding:90px 0 60px; text-align:center;}
-  .contact h2{font-size:clamp(2rem, 6vw, 3.4rem); text-transform:uppercase;}
-  .contact p{color:var(--muted); margin:18px auto 32px; max-width:46ch;}
-  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
-  .contact-pill{
-    border:1px solid rgba(245,243,238,.25); padding:13px 22px; border-radius:2px;
-    font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.02em;
-    transition:border-color .2s, background .2s;
-  }
-  .contact-pill:hover{border-color:var(--accent); background:var(--accent-soft);}
-  .contact-pill.whatsapp{background:var(--accent); color:var(--ink); border-color:var(--accent);}
-  .contact-pill.whatsapp:hover{background:#ff6640;}
-
-  footer{text-align:center; padding:30px 0; font-family:var(--font-mono); font-size:.7rem; color:var(--muted); border-top:1px solid rgba(245,243,238,.08);}
-
-  @media (max-width:860px){
-    .nav-links{
-      position:fixed; inset:76px 0 0 0; background:var(--ink); flex-direction:column;
-      padding:30px 24px; gap:24px; transform:translateX(100%); transition:transform .3s ease;
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
     }
-    .nav-links.open{transform:translateX(0);}
-    .nav-toggle{display:flex;}
-  }
+
+    :root {
+        --bg: #0c0c0c;
+        --surface: #171717;
+        --surface-2: #212121;
+        --border: #303030;
+        --text: #f5f5f5;
+        --muted: #9c9c9c;
+        --accent: #e10600;
+        --accent-dark: #b30500;
+        --on-accent: #ffffff;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    /* HEADER */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    header .logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        color: var(--text);
+    }
+
+    header nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    header nav a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.9rem;
+    }
+
+    header nav a.cta {
+        background: var(--accent);
+        color: var(--on-accent);
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+        header nav a:not(.cta) { display: none; }
+        header { padding: 16px 20px; }
+    }
+
+    /* SCROLLING TICKER HEADLINE */
+    .marquee-wrap {
+        overflow: hidden;
+        background: #000000;
+        border-bottom: 1px solid var(--border);
+        padding: 14px 0;
+    }
+
+    .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: scrollLeft 20s linear infinite;
+        gap: 60px;
+    }
+
+    .marquee-track span {
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: var(--accent);
+        white-space: nowrap;
+    }
+
+    .marquee-track span::after {
+        content: "✦";
+        margin-left: 60px;
+        color: var(--muted);
+    }
+
+    @keyframes scrollLeft {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track { animation: none; }
+    }
+
+    /* HERO */
+    .hero {
+        max-width: 900px;
+        margin: 70px auto 60px;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .eyebrow {
+        display: inline-block;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: 999px;
+        margin-bottom: 24px;
+    }
+
+    .hero h1 {
+        font-size: 2.75rem;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+        margin-bottom: 20px;
+        color: var(--text);
+    }
+
+    .hero p.lead {
+        font-size: 1.05rem;
+        color: var(--muted);
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+
+    .hero p.lead strong {
+        color: var(--accent);
+    }
+
+    .btn-primary {
+        display: inline-block;
+        background: var(--accent);
+        color: var(--on-accent);
+        padding: 16px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background: var(--accent-dark);
+        transform: translateY(-2px);
+    }
+
+    .hero-ticker {
+        margin-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 22px;
+        font-size: 0.85rem;
+        color: var(--muted);
+    }
+
+    .hero-ticker span::before {
+        content: "✦";
+        margin-right: 6px;
+        color: var(--accent);
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+        text-align: center;
+        margin: 90px auto 10px;
+    }
+
+    .section-label .kicker {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    .section-label h2 {
+        font-size: 2rem;
+        margin-top: 8px;
+        color: var(--text);
+    }
+
+    /* PRODUCT GRID */
+    .pricing-grid {
+        max-width: 1150px;
+        margin: 40px auto 0;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    .pack {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px 28px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pack:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+
+    .pack.popular {
+        border: 2px solid var(--accent);
+    }
+
+    .pack h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: var(--text);
+    }
+
+    .pack .price {
+        font-size: 2.1rem;
+        font-weight: 800;
+        margin: 4px 0 16px;
+        color: var(--accent);
+    }
+
+    .pack .price sup {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-left: 2px;
+        color: var(--muted);
+    }
+
+    /* OPTIONS */
+    .option-label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .size-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 22px;
+    }
+
+    .size-btn {
+        border: 1px solid var(--border);
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .size-btn:hover {
+        border-color: var(--accent);
+    }
+
+    .size-btn.active {
+        background: var(--accent);
+        color: var(--on-accent);
+        border-color: var(--accent);
+    }
+
+    /* COLORS */
+    .color-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .color-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid var(--border);
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .color-dot:hover {
+        transform: scale(1.1);
+    }
+
+    .color-dot.active {
+        border-color: var(--accent);
+        transform: scale(1.15);
+    }
+
+    /* QUANTITY */
+    .qty-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .qty-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .qty-btn:hover {
+        border-color: var(--accent);
+    }
+
+    .qty-input {
+        width: 56px;
+        height: 34px;
+        text-align: center;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 0.95rem;
+        font-weight: 700;
+    }
+
+    /* SINGLE PHOTO PREVIEW */
+    .photo-single {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border: 1.5px dashed var(--border);
+        border-radius: 10px;
+        background: #ffffff;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        transition: background 0.2s ease;
+    }
+
+    .photo-single img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .photo-single .plus {
+        font-size: 1.4rem;
+        color: rgba(0,0,0,0.35);
+    }
+
+    .photo-single .color-caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.65);
+        color: #fff;
+        font-size: 0.72rem;
+        text-align: center;
+        padding: 6px 4px;
+        letter-spacing: 0.3px;
+    }
+
+    .pack-btn {
+        display: block;
+        text-align: center;
+        padding: 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: 2px solid var(--accent);
+        color: var(--accent);
+        transition: background 0.2s ease, color 0.2s ease;
+        margin-top: auto;
+        cursor: pointer;
+    }
+
+    .pack.popular .pack-btn {
+        background: var(--accent);
+        color: var(--on-accent);
+    }
+
+    .pack-btn:hover {
+        background: var(--accent);
+        color: var(--on-accent);
+    }
+
+    /* WHY CHOOSE */
+    .why-grid {
+        max-width: 1100px;
+        margin: 40px auto 0;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+        .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+        .why-grid { grid-template-columns: 1fr; }
+    }
+
+    .why-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 26px 22px;
+        text-align: left;
+    }
+
+    .why-card .icon {
+        font-size: 1.7rem;
+        margin-bottom: 14px;
+        display: block;
+    }
+
+    .why-card h4 {
+        font-size: 1.02rem;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+
+    .why-card p {
+        font-size: 0.88rem;
+        color: var(--muted);
+    }
+
+    /* CTA BAND */
+    .cta-band {
+        max-width: 900px;
+        margin: 100px auto 0;
+        padding: 60px 40px;
+        background: var(--accent);
+        color: var(--on-accent);
+        border-radius: 20px;
+        text-align: center;
+    }
+
+    .cta-band h2 {
+        font-size: 1.8rem;
+        margin-bottom: 14px;
+    }
+
+    .cta-band p {
+        color: rgba(255,255,255,0.85);
+        max-width: 480px;
+        margin: 0 auto 28px;
+        font-size: 0.95rem;
+    }
+
+    .cta-band .btn-primary {
+        background: var(--on-accent);
+        color: var(--accent-dark);
+    }
+
+    .cta-band .btn-primary:hover {
+        background: #eeeeee;
+    }
+
+    /* HOW TO ORDER */
+    .how-to-order {
+        max-width: 900px;
+        margin: 100px auto 0;
+        padding: 0 20px;
+    }
+
+    .how-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 700px) {
+        .how-grid { grid-template-columns: 1fr; }
+    }
+
+    .how-step {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px 20px;
+        text-align: left;
+    }
+
+    .how-step .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--on-accent);
+        font-weight: 800;
+        font-size: 0.9rem;
+        margin-bottom: 14px;
+    }
+
+    .how-step h4 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+
+    .how-step p {
+        font-size: 0.86rem;
+        color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+        max-width: 1100px;
+        margin: 100px auto 0;
+        padding: 50px 20px 30px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 30px;
+        border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+        footer { grid-template-columns: 1fr 1fr; }
+    }
+
+    footer h5 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        margin-bottom: 14px;
+    }
+
+    footer .brand-name {
+        font-weight: 800;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+
+    footer .brand-tag {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 14px;
+    }
+
+    footer ul {
+        list-style: none;
+    }
+
+    footer ul li {
+        margin-bottom: 8px;
+        font-size: 0.88rem;
+    }
+
+    footer ul li a {
+        text-decoration: none;
+        color: var(--muted);
+    }
+
+    footer ul li a:hover {
+        color: var(--accent);
+    }
+
+    .footer-bottom {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px 20px 40px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--muted);
+    }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <div class="brand">SISKO SHOP<span class="star">✱</span></div>
-    <nav class="nav-links" id="navLinks">
-      <a href="#accueil">Accueil</a>
-      <a href="#catalogue">Catalogue</a>
-      <a href="#commander">Commander</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+<header>
+    <div class="logo">SISKO SHOP</div>
+    <nav>
+        <a href="#">Comment ça marche 🚀</a>
+        <a href="#">Services</a>
+        <a href="#">Produits</a>
+        <a href="#">Secteurs</a>
+        <a href="#">Avis</a>
+        <a href="#">Contact</a>
+        <a href="#" class="cta">Configurer ma commande</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
 </header>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>NOUVELLE COLLECTION</span><span>★</span>
-    <span>COMMANDE VIA WHATSAPP</span><span>★</span>
-    <span>LIVRAISON DISPONIBLE</span><span>★</span>
-    <span>PAIEMENT À LA LIVRAISON</span><span>★</span>
-    <span>NOUVELLE COLLECTION</span><span>★</span>
-    <span>COMMANDE VIA WHATSAPP</span><span>★</span>
-    <span>LIVRAISON DISPONIBLE</span><span>★</span>
-    <span>PAIEMENT À LA LIVRAISON</span><span>★</span>
-  </div>
+<div class="marquee-wrap">
+    <div class="marquee-track">
+        <span>Bienvenue chez SISKO SHOP</span>
+        <span>Bienvenue chez SISKO SHOP</span>
+        <span>Bienvenue chez SISKO SHOP</span>
+        <span>Bienvenue chez SISKO SHOP</span>
+        <span>Bienvenue chez SISKO SHOP</span>
+        <span>Bienvenue chez SISKO SHOP</span>
+    </div>
 </div>
 
-<section class="hero" id="accueil">
-  <div class="wrap hero-inner">
-    <span class="eyebrow">Alger · Algérie</span>
-    <h1>STREETWEAR<br><span class="line2">SANS LIMITES</span></h1>
-    <p>Oversized tees, joggers et casquettes pensés pour la rue. Repère ta pièce, commande en un message.</p>
-    <div class="hero-ctas">
-      <a href="#catalogue" class="btn-primary">Voir le catalogue</a>
-      <a href="https://wa.me/213558830287?text=Bonjour%2C%20je%20souhaite%20avoir%20des%20infos%20sur%20vos%20v%C3%AAtements" class="btn-ghost">Commander sur WhatsApp</a>
+<main>
+    <section class="hero">
+        <span class="eyebrow">✦ Solutions entreprises</span>
+        <h1>Bienvenue chez SISKO SHOP</h1>
+        <p class="lead">Des articles clés-en-main pour habiller votre personnel, vos événements et vos équipes. Livraison à Alger, <strong>meilleure qualité et meilleur prix en Algérie</strong>.</p>
+        <a href="https://wa.me/213770406106" class="btn-primary">Demander un devis →</a>
+
+        <div class="hero-ticker">
+            <span>Broderie &amp; DTF incluses</span>
+            <span>Devis personnalisé disponible</span>
+        </div>
+    </section>
+
+    <section id="packs">
+        <div class="section-label">
+            <div class="kicker">Nos produits</div>
+            <h2>Choisissez votre article</h2>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- T-SHIRT -->
+            <div class="pack">
+                <h3>T-Shirt</h3>
+                <div class="price">750 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="tshirt-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="tshirt-color" data-preview="preview-tshirt">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-tshirt', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-tshirt" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-tshirt', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-tshirt" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('T-Shirt', 750, 'tshirt-size', 'tshirt-color', 'qty-tshirt'); return false;">Commander →</a>
+            </div>
+
+            <!-- SHORT -->
+            <div class="pack popular">
+                <h3>Short</h3>
+                <div class="price">1 150 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="short-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="short-color" data-preview="preview-short">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-short', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-short" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-short', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-short" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Short', 1150, 'short-size', 'short-color', 'qty-short'); return false;">Commander →</a>
+            </div>
+
+            <!-- PANTALON -->
+            <div class="pack">
+                <h3>Pantalon</h3>
+                <div class="price">1 200 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="pantalon-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="pantalon-color" data-preview="preview-pantalon">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-pantalon', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-pantalon" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-pantalon', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-pantalon" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Pantalon', 1200, 'pantalon-size', 'pantalon-color', 'qty-pantalon'); return false;">Commander →</a>
+            </div>
+
+            <!-- BAGGY T-SHIRT -->
+            <div class="pack">
+                <h3>Baggy T-Shirt</h3>
+                <div class="price">1 400 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="baggytshirt-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="baggytshirt-color" data-preview="preview-baggytshirt">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-baggytshirt', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-baggytshirt" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-baggytshirt', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-baggytshirt" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Baggy T-Shirt', 1400, 'baggytshirt-size', 'baggytshirt-color', 'qty-baggytshirt'); return false;">Commander →</a>
+            </div>
+
+            <!-- BAGGY SHORT -->
+            <div class="pack">
+                <h3>Baggy Short</h3>
+                <div class="price">1 400 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="baggyshort-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="baggyshort-color" data-preview="preview-baggyshort">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-baggyshort', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-baggyshort" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-baggyshort', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-baggyshort" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Baggy Short', 1400, 'baggyshort-size', 'baggyshort-color', 'qty-baggyshort'); return false;">Commander →</a>
+            </div>
+
+            <!-- CASQUETTE -->
+            <div class="pack">
+                <h3>Casquette</h3>
+                <div class="price">1 200 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="casquette-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="casquette-color" data-preview="preview-casquette">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-casquette', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-casquette" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-casquette', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-casquette" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Casquette', 1200, 'casquette-size', 'casquette-color', 'qty-casquette'); return false;">Commander →</a>
+            </div>
+
+            <!-- GILET DE SECURITE -->
+            <div class="pack">
+                <h3>Gilet de Sécurité</h3>
+                <div class="price">2 000 <sup>DA</sup></div>
+
+                <span class="option-label">Taille</span>
+                <div class="size-row" data-group="gilet-size">
+                    <button class="size-btn" onclick="selectOption(this)">S</button>
+                    <button class="size-btn" onclick="selectOption(this)">M</button>
+                    <button class="size-btn" onclick="selectOption(this)">L</button>
+                    <button class="size-btn" onclick="selectOption(this)">XL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXL</button>
+                    <button class="size-btn" onclick="selectOption(this)">XXXL</button>
+                </div>
+
+                <span class="option-label">Couleur</span>
+                <div class="color-row" data-group="gilet-color" data-preview="preview-gilet">
+                    <div class="color-dot active" style="background:#ffffff;" data-color-name="Blanc" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#000000;" data-color-name="Noir" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#8a8a8a;" data-color-name="Gris" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#c0392b;" data-color-name="Rouge" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#1f3a63;" data-color-name="Marine" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#2e7d4f;" data-color-name="Vert" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#d9c39a;" data-color-name="Beige" onclick="selectOption(this)"></div>
+                    <div class="color-dot" style="background:#5c1f2e;" data-color-name="Bordeaux" onclick="selectOption(this)"></div>
+                </div>
+
+                <span class="option-label">Quantité</span>
+                <div class="qty-row">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-gilet', -1)">−</button>
+                    <input type="number" class="qty-input" id="qty-gilet" value="1" min="1">
+                    <button type="button" class="qty-btn" onclick="stepQty('qty-gilet', 1)">+</button>
+                </div>
+
+                <span class="option-label">Aperçu</span>
+                <div class="photo-single" id="preview-gilet" style="background:#ffffff;">
+                    <span class="plus">+</span>
+                    <span class="color-caption">Blanc</span>
+                </div>
+
+                <a href="#" class="pack-btn" onclick="commander('Gilet de Sécurité', 2000, 'gilet-size', 'gilet-color', 'qty-gilet'); return false;">Commander →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="section-label">
+            <div class="kicker">Pourquoi nous</div>
+            <h2>Pourquoi choisir Sisko Shop ?</h2>
+        </div>
+
+        <div class="why-grid">
+            <div class="why-card">
+                <span class="icon">🎨</span>
+                <h4>Personnalisation totale</h4>
+                <p>Logo, couleurs, texte — chaque article est imprimé ou brodé selon votre identité.</p>
+            </div>
+            <div class="why-card">
+                <span class="icon">⚡</span>
+                <h4>Délai rapide</h4>
+                <p>Production en atelier à Alger. Livraison sous 5 à 7 jours ouvrés.</p>
+            </div>
+            <div class="why-card">
+                <span class="icon">🏭</span>
+                <h4>Fait en Algérie</h4>
+                <p>Atelier local, contrôle qualité sur chaque commande, sans intermédiaire.</p>
+            </div>
+            <div class="why-card">
+                <span class="icon">📦</span>
+                <h4>Devis sur mesure</h4>
+                <p>Besoin de plus ? On adapte l'offre selon vos quantités et votre budget.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-to-order">
+        <div class="section-label" style="margin-top:0;">
+            <div class="kicker">Simple et rapide</div>
+            <h2>Comment commander ?</h2>
+        </div>
+
+        <div class="how-grid">
+            <div class="how-step">
+                <span class="num">1</span>
+                <h4>Choisissez votre article</h4>
+                <p>Sélectionnez la taille, la couleur et la quantité sur la carte du produit qui vous intéresse.</p>
+            </div>
+            <div class="how-step">
+                <span class="num">2</span>
+                <h4>Cliquez sur "Commander"</h4>
+                <p>WhatsApp s'ouvre automatiquement avec un message déjà rempli : article, taille, couleur et quantité.</p>
+            </div>
+            <div class="how-step">
+                <span class="num">3</span>
+                <h4>Envoyez le message</h4>
+                <p>On confirme votre commande, le prix total et le délai de livraison directement sur WhatsApp, sous 6h.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-band">
+        <h2>Un besoin spécifique ? On vous fait un devis.</h2>
+        <p>Quantités différentes, articles hors catalogue, délai urgent — contactez-nous et obtenez une réponse sous 6h.</p>
+        <a href="https://wa.me/213770406106" class="btn-primary">Discuter sur WhatsApp</a>
     </div>
-  </div>
-</section>
+</main>
 
-<section class="catalogue" id="catalogue">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Drop 01</span>
-        <h2>Catalogue</h2>
-      </div>
-      <div class="filters" id="filters">
-        <button class="filter-btn active" data-filter="all">Tout</button>
-        <button class="filter-btn" data-filter="tshirts">T-Shirts</button>
-        <button class="filter-btn" data-filter="joggers">Joggers</button>
-        <button class="filter-btn" data-filter="casquettes">Casquettes</button>
-        <button class="filter-btn" data-filter="accessoires">Accessoires</button>
-      </div>
+<footer>
+    <div>
+        <div class="brand-name">Sisko Shop</div>
+        <div class="brand-tag">Impression &amp; Broderie Professionnelle — Alger, Algérie</div>
     </div>
-
-    <div class="grid" id="grid">
-
-      <article class="product-card" data-cat="tshirts">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 014</span>
-          <img class="photo single" src="https://placehold.co/500x625/0A0A0A/F5F3EE?font=roboto&text=Tee+Noir" alt="Oversized Tee 250GSM — Noir">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Oversized Tee 250GSM</div>
-          <span class="swatch-label">Couleur</span>
-          <div class="swatches" role="group" aria-label="Choisir une couleur">
-            <button class="swatch active" style="--swatch-color:#0A0A0A" aria-label="Noir"
-              data-img="https://placehold.co/500x625/0A0A0A/F5F3EE?font=roboto&text=Tee+Noir"
-              data-alt="Oversized Tee 250GSM — Noir"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Noir%20(R%C3%A9f.%20014)"></button>
-            <button class="swatch" style="--swatch-color:#F5F3EE" aria-label="Blanc"
-              data-img="https://placehold.co/500x625/F5F3EE/0A0A0A?font=roboto&text=Tee+Blanc"
-              data-alt="Oversized Tee 250GSM — Blanc"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Blanc%20(R%C3%A9f.%20014)"></button>
-            <button class="swatch" style="--swatch-color:#9C9C94" aria-label="Gris"
-              data-img="https://placehold.co/500x625/9C9C94/0A0A0A?font=roboto&text=Tee+Gris"
-              data-alt="Oversized Tee 250GSM — Gris"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Gris%20(R%C3%A9f.%20014)"></button>
-            <button class="swatch" style="--swatch-color:#6E1F2A" aria-label="Bordeaux"
-              data-img="https://placehold.co/500x625/6E1F2A/F5F3EE?font=roboto&text=Tee+Bordeaux"
-              data-alt="Oversized Tee 250GSM — Bordeaux"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Bordeaux%20(R%C3%A9f.%20014)"></button>
-            <button class="swatch" style="--swatch-color:#6B6B4F" aria-label="Kaki"
-              data-img="https://placehold.co/500x625/6B6B4F/F5F3EE?font=roboto&text=Tee+Kaki"
-              data-alt="Oversized Tee 250GSM — Kaki"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Kaki%20(R%C3%A9f.%20014)"></button>
-          </div>
-          <div class="product-meta">
-            <span class="product-price">1 300 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Oversized%20Tee%20250GSM%20-%20Noir%20(R%C3%A9f.%20014)">Commander</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card" data-cat="tshirts">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 027 · Homme</span>
-          <img class="photo single" src="https://placehold.co/500x625/F5F3EE/0A0A0A?font=roboto&text=Tee+Blanc" alt="Regular Tee Homme — Blanc">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Regular Tee Homme 210GSM</div>
-          <span class="swatch-label">Couleur</span>
-          <div class="swatches" role="group" aria-label="Choisir une couleur">
-            <button class="swatch active" style="--swatch-color:#F5F3EE" aria-label="Blanc"
-              data-img="https://placehold.co/500x625/F5F3EE/0A0A0A?font=roboto&text=Tee+Blanc"
-              data-alt="Regular Tee Homme — Blanc"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Blanc%20(R%C3%A9f.%20027)"></button>
-            <button class="swatch" style="--swatch-color:#0A0A0A" aria-label="Noir"
-              data-img="https://placehold.co/500x625/0A0A0A/F5F3EE?font=roboto&text=Tee+Noir"
-              data-alt="Regular Tee Homme — Noir"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Noir%20(R%C3%A9f.%20027)"></button>
-            <button class="swatch" style="--swatch-color:#9C9C94" aria-label="Gris"
-              data-img="https://placehold.co/500x625/9C9C94/0A0A0A?font=roboto&text=Tee+Gris"
-              data-alt="Regular Tee Homme — Gris"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Gris%20(R%C3%A9f.%20027)"></button>
-            <button class="swatch" style="--swatch-color:#2C4A6E" aria-label="Bleu marine"
-              data-img="https://placehold.co/500x625/2C4A6E/F5F3EE?font=roboto&text=Tee+Marine"
-              data-alt="Regular Tee Homme — Bleu marine"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Bleu%20Marine%20(R%C3%A9f.%20027)"></button>
-            <button class="swatch" style="--swatch-color:#6B6B4F" aria-label="Kaki"
-              data-img="https://placehold.co/500x625/6B6B4F/F5F3EE?font=roboto&text=Tee+Kaki"
-              data-alt="Regular Tee Homme — Kaki"
-              data-order="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Kaki%20(R%C3%A9f.%20027)"></button>
-          </div>
-          <div class="product-meta">
-            <span class="product-price">1 000 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Regular%20Tee%20Homme%20210GSM%20-%20Blanc%20(R%C3%A9f.%20027)">Commander</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card" data-cat="joggers">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 032</span>
-          <img class="photo main" src="https://placehold.co/500x625/151515/F5F3EE?font=roboto&text=Photo+1" alt="Baggy Jogger — face">
-          <img class="photo alt" src="https://placehold.co/500x625/0A0A0A/FF4B1F?font=roboto&text=Photo+2" alt="Baggy Jogger — dos">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Baggy Jogger</div>
-          <div class="product-meta">
-            <span class="product-price">1 500 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Baggy%20Jogger%20(R%C3%A9f.%20032)">Commander</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card" data-cat="casquettes">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 041</span>
-          <img class="photo main" src="https://placehold.co/500x625/151515/F5F3EE?font=roboto&text=Photo+1" alt="Casquette basique — face">
-          <img class="photo alt" src="https://placehold.co/500x625/0A0A0A/FF4B1F?font=roboto&text=Photo+2" alt="Casquette basique — profil">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Casquette Basique</div>
-          <div class="product-meta">
-            <span class="product-price">1 200 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Casquette%20Basique%20(R%C3%A9f.%20041)">Commander</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card" data-cat="joggers">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 058</span>
-          <img class="photo main" src="https://placehold.co/500x625/151515/F5F3EE?font=roboto&text=Photo+1" alt="Ensemble zip + baggy — face">
-          <img class="photo alt" src="https://placehold.co/500x625/0A0A0A/FF4B1F?font=roboto&text=Photo+2" alt="Ensemble zip + baggy — dos">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Ensemble Zip + Baggy</div>
-          <div class="product-meta">
-            <span class="product-price">3 200 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Ensemble%20Zip%20%2B%20Baggy%20(R%C3%A9f.%20058)">Commander</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card" data-cat="accessoires">
-        <div class="photo-wrap">
-          <span class="stock-badge">Réf. 063</span>
-          <img class="photo main" src="https://placehold.co/500x625/151515/F5F3EE?font=roboto&text=Photo+1" alt="Tote bag logo — face">
-          <img class="photo alt" src="https://placehold.co/500x625/0A0A0A/FF4B1F?font=roboto&text=Photo+2" alt="Tote bag logo — détail">
-        </div>
-        <div class="product-info">
-          <div class="product-name">Tote Bag Logo</div>
-          <div class="product-meta">
-            <span class="product-price">800 DA</span>
-            <a class="product-order" href="https://wa.me/213558830287?text=Bonjour%2C%20je%20veux%20commander%20%3A%20Tote%20Bag%20Logo%20(R%C3%A9f.%20063)">Commander</a>
-          </div>
-        </div>
-      </article>
-
+    <div>
+        <h5>Services</h5>
+        <ul>
+            <li><a href="#">Broderie machine</a></li>
+            <li><a href="#">Impression DTF</a></li>
+            <li><a href="#">Uniformes B2B</a></li>
+            <li><a href="#">Sérigraphie</a></li>
+        </ul>
     </div>
-  </div>
-</section>
-
-<section class="steps" id="commander">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Le processus</span>
-        <h2>Comment commander</h2>
-      </div>
+    <div>
+        <h5>Produits</h5>
+        <ul>
+            <li><a href="#">T-shirt</a></li>
+            <li><a href="#">Short</a></li>
+            <li><a href="#">Pantalon</a></li>
+            <li><a href="#">Baggy T-shirt</a></li>
+            <li><a href="#">Baggy Short</a></li>
+            <li><a href="#">Casquette</a></li>
+            <li><a href="#">Gilet de sécurité</a></li>
+        </ul>
     </div>
-    <div class="steps-grid">
-      <div class="step">
-        <span class="step-num">01</span>
-        <h3>Choisis</h3>
-        <p>Parcours le catalogue et repère la pièce qui te plaît.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <h3>Contacte</h3>
-        <p>Clique sur « Commander » : WhatsApp s'ouvre avec ton choix déjà écrit.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <h3>Confirme</h3>
-        <p>On valide ensemble la taille, la couleur et l'adresse de livraison.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">04</span>
-        <h3>Reçois</h3>
-        <p>Ta commande est livrée chez toi ou en point relais.</p>
-      </div>
+    <div>
+        <h5>Contact</h5>
+        <ul>
+            <li><a href="https://wa.me/213770406106" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/p/DaLoV_djhv0/" target="_blank" rel="noopener">📸 @sisko.shop</a></li>
+            <li><a href="https://www.google.com/maps?vet=10CAAQoqAOahcKEwjY79bhqrCVAxUAAAAAHQAAAAAQDA..i&sca_esv=44f81d52ff2b6cb4&client=safari&hs=3aVV&pvq=Cg0vZy8xMXluMTJscjBjIhkKE3Npc2tvIHNob3AgY2xvdGhpbmcQAhgD&lqi=ChNzaXNrbyBzaG9wIGNsb3RoaW5nkgEOY2xvdGhpbmdfc3RvcmU&fvr=1&cs=1&um=1&ie=UTF-8&fb=1&gl=dz&sa=X&ftid=0x128faf0017aec481:0x9a7ab2d6cfd460c6" target="_blank" rel="noopener">📍 Alger, Algérie</a></li>
+        </ul>
     </div>
-  </div>
-</section>
+</footer>
 
-<section class="contact" id="contact">
-  <div class="wrap">
-    <span class="eyebrow">Une question ?</span>
-    <h2>On en parle ?</h2>
-    <p>Disponible tous les jours pour répondre à tes messages et t'aider à choisir la bonne taille.</p>
-    <div class="contact-links">
-      <a class="contact-pill whatsapp" href="https://wa.me/213558830287">WhatsApp · 05 58 83 02 87</a>
-      <a class="contact-pill" href="https://instagram.com/Sisko_clothing">Instagram · @Sisko_clothing</a>
-      <a class="contact-pill" href="mailto:Siskocontact@gmail.com">Siskocontact@gmail.com</a>
-    </div>
-  </div>
-</section>
-
-<footer>© 2026 SISKO Clothing — Tous droits réservés</footer>
+<div class="footer-bottom">© 2026 Sisko Shop.</div>
 
 <script>
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', false);
-  }));
+    // To plug in real product photos: add entries here.
+    // Format: 'preview-id': { 'ColorName': 'photo-url.jpg', ... }
+    const productImages = {
+        'preview-tshirt': {},
+        'preview-short': {},
+        'preview-pantalon': {},
+        'preview-baggytshirt': {},
+        'preview-baggyshort': {},
+        'preview-casquette': {},
+        'preview-gilet': {}
+    };
 
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.product-card');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        const match = filter === 'all' || card.dataset.cat === filter;
-        card.classList.toggle('is-hidden', !match);
-      });
-    });
-  });
+    function selectOption(el) {
+        const group = el.parentElement;
+        const isColor = el.classList.contains('color-dot');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  cards.forEach(card => observer.observe(card));
+        group.querySelectorAll(isColor ? '.color-dot' : '.size-btn')
+            .forEach(item => item.classList.remove('active'));
+        el.classList.add('active');
 
-  document.querySelectorAll('.swatch').forEach(sw => {
-    sw.addEventListener('click', () => {
-      const group = sw.closest('.swatches');
-      group.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
-      sw.classList.add('active');
-      const card = sw.closest('.product-card');
-      const img = card.querySelector('.photo.single');
-      img.src = sw.dataset.img;
-      img.alt = sw.dataset.alt;
-      const orderLink = card.querySelector('.product-order');
-      orderLink.href = sw.dataset.order;
-    });
-  });
+        if (isColor) {
+            const previewId = group.getAttribute('data-preview');
+            const preview = document.getElementById(previewId);
+            if (preview) {
+                const colorName = el.getAttribute('data-color-name');
+                const colorHex = el.style.background;
+                const caption = preview.querySelector('.color-caption');
+                const plus = preview.querySelector('.plus');
+                const existingImg = preview.querySelector('img');
+
+                const photoUrl = productImages[previewId] ? productImages[previewId][colorName] : null;
+
+                if (photoUrl) {
+                    preview.style.background = '#000';
+                    if (existingImg) {
+                        existingImg.src = photoUrl;
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = photoUrl;
+                        preview.insertBefore(img, preview.firstChild);
+                    }
+                    if (plus) plus.style.display = 'none';
+                } else {
+                    preview.style.background = colorHex;
+                    if (existingImg) existingImg.remove();
+                    if (plus) plus.style.display = 'block';
+                }
+
+                if (caption) caption.textContent = colorName;
+            }
+        }
+    }
+
+    function stepQty(inputId, delta) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        let value = parseInt(input.value, 10) || 1;
+        value = Math.max(1, value + delta);
+        input.value = value;
+    }
+
+    function commander(productName, price, sizeGroup, colorGroup, qtyId) {
+        const sizeBtn = document.querySelector('[data-group="' + sizeGroup + '"] .size-btn.active');
+        const colorDot = document.querySelector('[data-group="' + colorGroup + '"] .color-dot.active');
+        const qtyInput = document.getElementById(qtyId);
+
+        const size = sizeBtn ? sizeBtn.textContent : 'non précisée';
+        const color = colorDot ? colorDot.getAttribute('data-color-name') : 'non précisée';
+        const qty = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+        const total = qty * price;
+
+        const message =
+            'Bonjour Sisko Shop, je souhaite commander :\n' +
+            '• Article : ' + productName + '\n' +
+            '• Prix unitaire : ' + price + ' DA\n' +
+            '• Taille : ' + size + '\n' +
+            '• Couleur : ' + color + '\n' +
+            '• Quantité : ' + qty + '\n' +
+            '• Total estimé : ' + total + ' DA';
+
+        const url = 'https://wa.me/213770406106?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+    }
 </script>
 
 </body>
